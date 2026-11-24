@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BODANOVA IPTV | أقوى سيرفر بث مباشر وترفيه</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #08080a;
+            --bg-card: #111115;
+            --primary-red: #e50914;
+            --primary-red-hover: #ff1e27;
+            --red-glow: rgba(229, 9, 20, 0.45);
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            font-family: 'Cairo', 'Poppins', sans-serif;
+        }
+
+        body[dir="ltr"] {
+            font-family: 'Poppins', 'Cairo', sans-serif;
+        }
+
+        /* تأثير إضاءة الماوس */
+        .cursor-glow {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(229, 9, 20, 0.16) 0%, rgba(229, 9, 20, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo-red {
+            color: var(--primary-red);
+            text-shadow: 0 0 15px var(--red-glow);
+        }
+
+        /* الأزرار */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.98rem;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary-red);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--red-glow);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-red-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.7);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 1.5px solid var(--primary-red);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px var(--red-glow);
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary-red);
+            background: rgba(229, 9, 20, 0.18);
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: all 0.3s ease;
+            background: rgba(8, 8, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            inset-inline-start: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-red);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 105px;
+            padding-bottom: 50px;
+            background: linear-gradient(to bottom, rgba(8, 8, 10, 0.82), rgba(8, 8, 10, 0.96)),
+                        url('https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(229, 9, 20, 0.2);
+            border: 1px solid var(--primary-red);
+            color: #ff4d56;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.9rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #ff1e27, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0 auto 35px;
+            color: #d4d4d4;
+            font-size: 1.12rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: var(--primary-red);
+            font-weight: 900;
+        }
+
+        .stat-item span {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Sections General */
+        .section {
+            padding: 90px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.08rem;
+        }
+
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+
+        .price-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 35px 28px;
+            position: relative;
+            transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .price-card:hover {
+            border-color: var(--primary-red);
+            box-shadow: 0 15px 40px rgba(229, 9, 20, 0.2);
+        }
+
+        .price-card.popular {
+            border: 2px solid var(--primary-red);
+            background: linear-gradient(180deg, #190c0e 0%, var(--bg-card) 100%);
+            transform: scale(1.03);
+        }
+
+        .popular-tag {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-red);
+            color: #fff;
+            padding: 4px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .card-header h3 {
+            font-size: 1.45rem;
+            margin-bottom: 5px;
+        }
+
+        .card-header .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .price-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 22px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .price-row:first-child {
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .price-row .region {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .price-row .amount {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-red);
+        }
+
+        .price-row .amount small {
+            font-size: 0.88rem;
+            color: #fff;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 28px;
+        }
+
+        .features-list li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list i {
+            color: var(--primary-red);
+        }
+
+        /* Media Showcase */
+        .sub-heading {
+            font-size: 1.35rem;
+            margin-bottom: 20px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-heading i {
+            color: var(--primary-red);
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .media-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .media-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary-red);
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.25);
+        }
+
+        .media-card video,
+        .media-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+            background: #000;
+        }
+
+        .media-badge {
+            position: absolute;
+            top: 12px;
+            inset-inline-end: 12px;
+            background: rgba(229, 9, 20, 0.92);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .media-caption {
+            padding: 15px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-align: center;
+            color: #e6e6e6;
+        }
+
+        /* Reviews Section */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 45px;
+        }
+
+        .review-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .review-card:hover {
+            border-color: var(--primary-red);
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .review-card p {
+            color: #ddd;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .reviewer {
+            color: var(--primary-red);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .add-review-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 16px;
+        }
+
+        .add-review-box h3 {
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .add-review-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .add-review-box input,
+        .add-review-box select,
+        .add-review-box textarea {
+            background: #0a0a0d;
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .add-review-box input:focus,
+        .add-review-box select:focus,
+        .add-review-box textarea:focus {
+            border-color: var(--primary-red);
+        }
+
+        /* Footer */
+        .footer {
+            background: #050507;
+            border-top: 1px solid var(--border-color);
+            padding-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            margin: 15px 0 20px;
+        }
+
+        .social-btn.fb {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #1877f2;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.3s;
+        }
+
+        .social-btn.fb:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-contact h3 {
+            margin-bottom: 12px;
+        }
+
+        .footer-contact p {
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .whatsapp-numbers {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .wa-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25d366;
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.3s;
+        }
+
+        .wa-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Floating WhatsApp */
+        .floating-wa {
+            position: fixed;
+            bottom: 25px;
+            inset-inline-start: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            transition: transform 0.3s;
+            text-decoration: none;
+        }
+
+        .floating-wa:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-red);
+            padding: 35px;
+            border-radius: 16px;
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            text-align: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            inset-inline-end: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .selected-plan {
+            background: rgba(229, 9, 20, 0.15);
+            color: #ff4d56;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                inset-inline-start: 0;
+                width: 100%;
+                background: var(--bg-card);
+                padding: 20px;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .nav-links.active { display: flex; }
+            .nav-btn { display: none; }
+            .menu-toggle { display: block; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.1rem; }
+            .price-card.popular { transform: scale(1); }
+            .cursor-glow { display: none; }
+        }
+    </style>
+</head>
+<body dir="rtl">
+
+    <!-- تأثير إضاءة الماوس -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- الشريط العلوي -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <span class="logo-red">BODANOVA</span> IPTV
+            </a>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#home" data-i18n="nav_home">الرئيسية</a>
+                <a href="#pricing" data-i18n="nav_pricing">الباقات والأسعار</a>
+                <a href="#media" data-i18n="nav_media">معرض السيرفر</a>
+                <a href="#reviews" data-i18n="nav_reviews">آراء العملاء</a>
+                <a href="#contact" data-i18n="nav_contact">تواصل معنا</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="lang-btn" id="langToggle" type="button" title="Switch Language">
+                    <i class="fas fa-globe"></i>
+                    <span id="langLabel">English</span>
+                </button>
+                <a href="#pricing" class="btn btn-primary nav-btn" data-i18n="nav_cta">اشترك الآن</a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- الواجهة الرئيسية -->
+    <section class="hero" id="home">
+        <div class="container hero-content reveal">
+            <div class="badge" data-i18n="hero_badge"><i class="fas fa-bolt"></i> ثبات 99.9% بدون تقطيع وقت المباريات</div>
+            <h1 data-i18n="hero_title">استمتع بعالم الترفيه بلا حدود مع <span class="text-gradient">BODANOVA IPTV</span></h1>
+            <p data-i18n="hero_desc">آلاف القنوات الرياضية والترفيهية، مكتبة متجددة من الأفلام والمسلسلات بجودة 4K و FHD، ودعم فني متواصل 24/7.</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="btn btn-primary" data-i18n="hero_btn1"><i class="fas fa-crown"></i> استكشف الباقات</a>
+                <a href="https://wa.me/201102008626?text=أهلاً%20BODANOVA%20IPTV،%20أرغب%20في%20الاشتراك" target="_blank" class="btn btn-outline" data-i18n="hero_btn2">
+                    <i class="fab fa-whatsapp"></i> تواصل واتساب سريع
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>+10K</h3>
+                    <span data-i18n="stat_channels">قناة مباشرة</span>
+                </div>
+                <div class="stat-item">
+                    <h3>4K / FHD</h3>
+                    <span data-i18n="stat_quality">جودة فائقة</span>
+                </div>
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <span data-i18n="stat_support">دعم فني فوري</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الباقات والأسعار -->
+    <section class="pricing section" id="pricing">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 data-i18n="pricing_title">اختر باقتك <span class="logo-red">المناسبة</span></h2>
+                <p data-i18n="pricing_subtitle">أسعار حصرية داخل مصر وخارجها مع تفعيل فوري خلال دقائق</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- باقة 3 شهور -->
+                <div class="price-card tilt-card reveal">
+                    <div class="card-header">
+                        <h3 data-i18n="plan3_title">باقة 3 شهور</h3>
+                        <span class="subtitle" data-i18n="plan3_sub">بداية قوية وتجربة مميزة</span>
+                    </div>
+                    <div class="price-box">
+                        <div class="price-row">
+                            <span class="region" data-i18n="inside_egypt"><i class="fas fa-map-marker-alt"></i> داخل مصر:</span>
+                            <span class="amount" data-i18n="plan3_eg">300 <small>جنيه</small></span>
+                        </div>
+                        <div class="price-row">
+                            <span class="region" data-i18n="outside_egypt"><i class="fas fa-globe"></i> خارج مصر:</span>
+                            <span class="amount" data-i18n="plan3_intl">15 <small>دولار</small></span>
+                        </div>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_sports">جميع القنوات الرياضية والترفيهية</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_vod">مكتبة أفلام ومسلسلات محدثة يومياً</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_res">جودة 4K / FHD / HD / SD</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_devices">يعمل على الشاشات، الموبايل، والكمبيوتر</span></li>
+                    </ul>
+                    <button class="btn btn-outline full-width order-btn" data-plan-key="plan3" data-i18n="order_btn">
+                        <i class="fab fa-whatsapp"></i> اشترك في الباقة
+                    </button>
+                </div>
+
+                <!-- باقة سنة كاملة (العرض الخاص 50 دولار بدل 60) -->
+                <div class="price-card popular tilt-card reveal">
+                    <div class="popular-tag" data-i18n="popular_tag">عرض خاص - الأكثر طلباً 🔥</div>
+                    <div class="card-header">
+                        <h3 data-i18n="plan12_title">باقة سنة كاملة (12 شهر)</h3>
+                        <span class="subtitle" data-i18n="plan12_sub">سنة كاملة من المتعة بدون انقطاع</span>
+                    </div>
+                    <div class="price-box">
+                        <div class="price-row">
+                            <span class="region" data-i18n="inside_egypt"><i class="fas fa-map-marker-alt"></i> داخل مصر:</span>
+                            <span class="amount" data-i18n="plan12_eg">500 <small>جنيه</small></span>
+                        </div>
+                        <div class="price-row">
+                            <span class="region" data-i18n="outside_egypt"><i class="fas fa-globe"></i> خارج مصر:</span>
+                            <span class="amount" data-i18n="plan12_intl"><del style="color: #888; font-size: 1rem; margin-inline-end: 6px;">60</del> 50 <small>دولار</small></span>
+                        </div>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_vip_sports">أولوية قصوى في الثبات وقت المباريات الكبرى</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_all_pkgs">جميع الباقات الرياضية والعائلية</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_huge_vod">مكتبة VOD ضخمة بأعلى جودة</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_vip_support">دعم فني VIP طوال فترة الاشتراك</span></li>
+                    </ul>
+                    <button class="btn btn-primary full-width order-btn" data-plan-key="plan12" data-i18n="order_btn_year">
+                        <i class="fab fa-whatsapp"></i> اغتنم عرض السنة الآن
+                    </button>
+                </div>
+
+                <!-- باقة 6 شهور -->
+                <div class="price-card tilt-card reveal">
+                    <div class="card-header">
+                        <h3 data-i18n="plan6_title">باقة 6 شهور</h3>
+                        <span class="subtitle" data-i18n="plan6_sub">توازن مثالي وسعر اقتصادي</span>
+                    </div>
+                    <div class="price-box">
+                        <div class="price-row">
+                            <span class="region" data-i18n="inside_egypt"><i class="fas fa-map-marker-alt"></i> داخل مصر:</span>
+                            <span class="amount" data-i18n="plan6_eg">350 <small>جنيه</small></span>
+                        </div>
+                        <div class="price-row">
+                            <span class="region" data-i18n="outside_egypt"><i class="fas fa-globe"></i> خارج مصر:</span>
+                            <span class="amount" data-i18n="plan6_intl">35 <small>دولار</small></span>
+                        </div>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_sports">جميع القنوات الرياضية والترفيهية</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_vod">مكتبة أفلام ومسلسلات محدثة يومياً</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_res">جودة 4K / FHD / HD / SD</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span data-i18n="feat_support_reg">دعم فني متواصل لحل أي مشكلة</span></li>
+                    </ul>
+                    <button class="btn btn-outline full-width order-btn" data-plan-key="plan6" data-i18n="order_btn">
+                        <i class="fab fa-whatsapp"></i> اشترك في الباقة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم معرض الصور والفيديوهات -->
+    <section class="media-section section" id="media">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 data-i18n="media_title">جولة داخل <span class="logo-red">سيرفر BODANOVA</span></h2>
+                <p data-i18n="media_sub">شاهد جودة الصورة وسرعة التنقل بين القنوات ومكتبة الترفيه</p>
+            </div>
+
+            <!-- فيديوهات استعراضية -->
+            <h3 class="sub-heading reveal"><i class="fas fa-video"></i> <span data-i18n="videos_heading">فيديوهات استعراض السيرفر</span></h3>
+            <div class="media-grid videos-grid reveal">
+                <div class="media-card video-card">
+                    <span class="media-badge">4K LIVE SPORTS</span>
+                    <video controls muted loop playsinline poster="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-soccer-player-kicking-the-ball-in-a-stadium-43477-large.mp4" type="video/mp4">
+                    </video>
+                    <div class="media-caption" data-i18n="vid1_cap">بث مباشر للمباريات والبطولات بجودة 4K بدون تقطيع</div>
+                </div>
+
+                <div class="media-card video-card">
+                    <span class="media-badge">HOME CINEMA</span>
+                    <video controls muted loop playsinline poster="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=800&q=80">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-watching-a-movie-in-a-dark-room-42407-large.mp4" type="video/mp4">
+                    </video>
+                    <div class="media-caption" data-i18n="vid2_cap">تجربة مشاهدة سينمائية للأفلام والمسلسلات بوضوح عالٍ</div>
+                </div>
+            </div>
+
+            <!-- صور استعراضية -->
+            <h3 class="sub-heading reveal" style="margin-top: 45px;"><i class="fas fa-images"></i> <span data-i18n="images_heading">لقطات وتجربة المشاهدة</span></h3>
+            <div class="media-grid images-grid reveal">
+                <div class="media-card image-card">
+                    <span class="media-badge">SMART TV</span>
+                    <div class="media-caption" data-i18n="img1_cap">يعمل بسلاسة على جميع الشاشات الذكية والأجهزة</div>
+                </div>
+                <div class="media-card image-card">
+                    <span class="media-badge">ULTRA HD</span>
+                    <div class="media-caption" data-i18n="img2_cap">مكتبة متجددة من الأفلام والمسلسلات في مكان واحد</div>
+                </div>
+                <div class="media-card image-card">
+                    <span class="media-badge">LIVE MATCHES</span>
+                    <div class="media-caption" data-i18n="img3_cap">تغطية شاملة لأهم البطولات والمباريات لحظة بلحظة</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التقييمات -->
+    <section class="reviews-section section" id="reviews">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 data-i18n="reviews_title">تقييمات وآراء <span class="logo-red">مشتركينا</span></h2>
+                <p data-i18n="reviews_sub">ثقة عملائنا هي سر نجاحنا واستمرارنا</p>
+            </div>
+
+            <div class="reviews-grid reveal" id="reviewsGrid">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="rev1_text">"بصراحة سيرفر محترم جداً، شغال معايا بقالي 6 شهور ومقطعش ولا مرة في ماتشات البطولات الكبرى."</p>
+                    <div class="reviewer" data-i18n="rev1_author">- أحمد محمود (مصر)</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="rev2_text">"خدمة عملاء سريعة جداً والتفعيل مخدش دقيقتين، ومكتبة المسلسلات فيها كل حاجة جديدة."</p>
+                    <div class="reviewer" data-i18n="rev2_author">- كريم السيد (السعودية)</div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p data-i18n="rev3_text">"أفضل سعر مقابل جودة جربته لحد دلوقتي، جددت اشتراك السنة وأنصح أي حد بيه."</p>
+                    <div class="reviewer" data-i18n="rev3_author">- محمد طارق (الإمارات)</div>
+                </div>
+            </div>
+
+            <div class="add-review-box reveal">
+                <h3 data-i18n="add_rev_title">شاركنا رأيك في الخدمة</h3>
+                <form id="reviewForm">
+                    <input type="text" id="reviewerName" placeholder="اسمك (مثال: يوسف - الإسكندرية)" required>
+                    <select id="reviewStars">
+                        <option value="★★★★★" data-i18n="star5">★★★★★ (ممتاز 5/5)</option>
+                        <option value="★★★★☆" data-i18n="star4">★★★★☆ (جيد جداً 4/5)</option>
+                    </select>
+                    <textarea id="reviewText" rows="3" placeholder="اكتب تجربتك مع سيرفر BODANOVA IPTV..." required></textarea>
+                    <button type="submit" class="btn btn-primary" data-i18n="submit_rev">نشر التقييم</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التواصل والربط الاجتماعي -->
+    <footer class="footer" id="contact">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo"><span class="logo-red">BODANOVA</span> IPTV</a>
+                <p data-i18n="footer_desc">وجهتك الأولى للبث التلفزيوني المباشر والترفيه المنزلي بأعلى جودة وأفضل سعر.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1JKS1oL45V/?mibextid=wwXIfr" target="_blank" class="social-btn fb">
+                        <i class="fab fa-facebook-f"></i> <span data-i18n="fb_btn">تابعنا على فيسبوك</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <h3 data-i18n="contact_title">تواصل معنا للاشتراك أو الدعم</h3>
+                <p data-i18n="contact_desc">فريقنا متاح للرد على استفساراتكم وتفعيل الاشتراكات فوراً عبر واتساب:</p>
+                <div class="whatsapp-numbers">
+                    <a href="https://wa.me/201102008626?text=أهلاً%20BODANOVA%20IPTV،%20أرغب%20في%20الاشتراك" target="_blank" class="wa-btn">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="wa1">واتساب 1: 01102008626</span>
+                    </a>
+                    <a href="https://wa.me/201033674399?text=أهلاً%20BODANOVA%20IPTV،%20أرغب%20في%20الاشتراك" target="_blank" class="wa-btn">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="wa2">واتساب 2: 01033674399</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="copyright">جميع الحقوق محفوظة © 2026 <span class="logo-red">BODANOVA IPTV</span></p>
+        </div>
+    </footer>
+
+    <!-- زر واتساب عائم -->
+    <a href="https://wa.me/201102008626?text=أهلاً%20BODANOVA%20IPTV" target="_blank" class="floating-wa" title="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- نافذة اختيار رقم الواتساب -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h3 data-i18n="modal_title">إتمام طلب الاشتراك</h3>
+            <p id="selectedPlanText" class="selected-plan"></p>
+            <p data-i18n="modal_desc">اختر رقم الواتساب المناسب للتواصل وتفعيل اشتراكك فوراً:</p>
+            <div class="modal-buttons">
+                <a id="waLink1" href="#" target="_blank" class="btn btn-primary full-width">
+                    <i class="fab fa-whatsapp"></i> <span data-i18n="modal_wa1">تواصل عبر 01102008626</span>
+                </a>
+                <a id="waLink2" href="#" target="_blank" class="btn btn-outline full-width">
+                    <i class="fab fa-whatsapp"></i> <span data-i18n="modal_wa2">تواصل عبر 01033674399</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const translations = {
+                ar: {
+                    page_title: "BODANOVA IPTV | أقوى سيرفر بث مباشر وترفيه",
+                    lang_switch: "English",
+                    nav_home: "الرئيسية",
+                    nav_pricing: "الباقات والأسعار",
+                    nav_media: "معرض السيرفر",
+                    nav_reviews: "آراء العملاء",
+                    nav_contact: "تواصل معنا",
+                    nav_cta: "اشترك الآن",
+                    hero_badge: '<i class="fas fa-bolt"></i> ثبات 99.9% بدون تقطيع وقت المباريات',
+                    hero_title: 'استمتع بعالم الترفيه بلا حدود مع <span class="text-gradient">BODANOVA IPTV</span>',
+                    hero_desc: "آلاف القنوات الرياضية والترفيهية، مكتبة متجددة من الأفلام والمسلسلات بجودة 4K و FHD، ودعم فني متواصل 24/7.",
+                    hero_btn1: '<i class="fas fa-crown"></i> استكشف الباقات',
+                    hero_btn2: '<i class="fab fa-whatsapp"></i> تواصل واتساب سريع',
+                    stat_channels: "قناة مباشرة",
+                    stat_quality: "جودة فائقة",
+                    stat_support: "دعم فني فوري",
+                    pricing_title: 'اختر باقتك <span class="logo-red">المناسبة</span>',
+                    pricing_subtitle: "أسعار حصرية داخل مصر وخارجها مع تفعيل فوري خلال دقائق",
+                    inside_egypt: '<i class="fas fa-map-marker-alt"></i> داخل مصر:',
+                    outside_egypt: '<i class="fas fa-globe"></i> خارج مصر:',
+                    plan3_title: "باقة 3 شهور",
+                    plan3_sub: "بداية قوية وتجربة مميزة",
+                    plan3_eg: '300 <small>جنيه</small>',
+                    plan3_intl: '15 <small>دولار</small>',
+                    plan6_title: "باقة 6 شهور",
+                    plan6_sub: "توازن مثالي وسعر اقتصادي",
+                    plan6_eg: '350 <small>جنيه</small>',
+                    plan6_intl: '35 <small>دولار</small>',
+                    popular_tag: "عرض خاص - الأكثر طلباً 🔥",
+                    plan12_title: "باقة سنة كاملة (12 شهر)",
+                    plan12_sub: "سنة كاملة من المتعة بدون انقطاع",
+                    plan12_eg: '500 <small>جنيه</small>',
+                    plan12_intl: '<del style="color: #888; font-size: 1rem; margin-inline-end: 6px;">60</del> 50 <small>دولار</small>',
+                    feat_sports: "جميع القنوات الرياضية والترفيهية",
+                    feat_vod: "مكتبة أفلام ومسلسلات محدثة يومياً",
+                    feat_res: "جودة 4K / FHD / HD / SD",
+                    feat_devices: "يعمل على الشاشات، الموبايل، والكمبيوتر",
+                    feat_vip_sports: "أولوية قصوى في الثبات وقت المباريات الكبرى",
+                    feat_all_pkgs: "جميع الباقات الرياضية والعائلية",
+                    feat_huge_vod: "مكتبة VOD ضخمة بأعلى جودة",
+                    feat_vip_support: "دعم فني VIP طوال فترة الاشتراك",
+                    feat_support_reg: "دعم فني متواصل لحل أي مشكلة",
+                    order_btn: '<i class="fab fa-whatsapp"></i> اشترك في الباقة',
+                    order_btn_year: '<i class="fab fa-whatsapp"></i> اغتنم عرض السنة الآن',
+                    media_title: 'جولة داخل <span class="logo-red">سيرفر BODANOVA</span>',
+                    media_sub: "شاهد جودة الصورة وسرعة التنقل بين القنوات ومكتبة الترفيه",
+                    videos_heading: "فيديوهات استعراض السيرفر",
+                    vid1_cap: "بث مباشر للمباريات والبطولات بجودة 4K بدون تقطيع",
+                    vid2_cap: "تجربة مشاهدة سينمائية للأفلام والمسلسلات بوضوح عالٍ",
+                   reviews_title: 'تقييمات وآراء <span class="logo-red">مشتركينا</span>',
+                    reviews_sub: "ثقة عملائنا هي سر نجاحنا واستمرارنا",
+                    rev1_text: '"بصراحة سيرفر محترم جداً، شغال معايا بقالي 6 شهور ومقطعش ولا مرة في ماتشات البطولات الكبرى."',
+                    rev1_author: "- أحمد محمود (مصر)",
+                    rev2_text: '"خدمة عملاء سريعة جداً والتفعيل مخدش دقيقتين، ومكتبة المسلسلات فيها كل حاجة جديدة."',
+                    rev2_author: "- كريم السيد (السعودية)",
+                    rev3_text: '"أفضل سعر مقابل جودة جربته لحد دلوقتي، جددت اشتراك السنة وأنصح أي حد بيه."',
+                    rev3_author: "- محمد طارق (الإمارات)",
+                    add_rev_title: "شاركنا رأيك في الخدمة",
+                    name_ph: "اسمك (مثال: يوسف - الإسكندرية)",
+                    text_ph: "اكتب تجربتك مع سيرفر BODANOVA IPTV...",
+                    star5: "★★★★★ (ممتاز 5/5)",
+                    star4: "★★★★☆ (جيد جداً 4/5)",
+                    submit_rev: "نشر التقييم",
+                    rev_alert: "شكراً لك! تم إضافة تقييمك بنجاح.",
+                    footer_desc: "وجهتك الأولى للبث التلفزيوني المباشر والترفيه المنزلي بأعلى جودة وأفضل سعر.",
+                    fb_btn: "تابعنا على فيسبوك",
+                    contact_title: "تواصل معنا للاشتراك أو الدعم",
+                    contact_desc: "فريقنا متاح للرد على استفساراتكم وتفعيل الاشتراكات فوراً عبر واتساب:",
+                    wa1: "واتساب 1: 01102008626",
+                    wa2: "واتساب 2: 01033674399",
+                    copyright: 'جميع الحقوق محفوظة © 2026 <span class="logo-red">BODANOVA IPTV</span>',
+                    modal_title: "إتمام طلب الاشتراك",
+                    modal_desc: "اختر رقم الواتساب المناسب للتواصل وتفعيل اشتراكك فوراً:",
+                    modal_wa1: "تواصل عبر 01102008626",
+                    modal_wa2: "تواصل عبر 01033674399",
+                    plan_prefix: "الباقة المختارة: ",
+                    plans: {
+                        plan3: "باقة 3 شهور (300 جنيه داخل مصر / 15 دولار خارج مصر)",
+                        plan6: "باقة 6 شهور (350 جنيه داخل مصر / 35 دولار خارج مصر)",
+                        plan12: "عرض باقة سنة كاملة 12 شهر (500 جنيه داخل مصر / 50 دولار بدلاً من 60 خارج مصر)"
+                    },
+                    wa_msg: (plan) => `أهلاً BODANOVA IPTV، أرغب في الاشتراك في: ${plan}`
+                },
+                en: {
+                    page_title: "BODANOVA IPTV | Ultra-Stable Live TV & Entertainment",
+                    lang_switch: "العربية",
+                    nav_home: "Home",
+                    nav_pricing: "Plans & Pricing",
+                    nav_media: "Media Showcase",
+                    nav_reviews: "Reviews",
+                    nav_contact: "Contact",
+                    nav_cta: "Subscribe Now",
+                    hero_badge: '<i class="fas fa-bolt"></i> 99.9% Uptime — Zero Freeze During Big Matches',
+                    hero_title: 'Unlimited Entertainment with <span class="text-gradient">BODANOVA IPTV</span>',
+                    hero_desc: "Thousands of live sports and entertainment channels, a fresh library of movies and series in 4K and FHD, with 24/7 support.",
+                    hero_btn1: '<i class="fas fa-crown"></i> Explore Plans',
+                    hero_btn2: '<i class="fab fa-whatsapp"></i> Quick WhatsApp Chat',
+                    stat_channels: "Live Channels",
+                    stat_quality: "4K / FHD Quality",
+                    stat_support: "Instant Support",
+                    pricing_title: 'Choose Your <span class="logo-red">Plan</span>',
+                    pricing_subtitle: "Special pricing inside Egypt & worldwide with instant activation",
+                    inside_egypt: '<i class="fas fa-map-marker-alt"></i> Inside Egypt:',
+                    outside_egypt: '<i class="fas fa-globe"></i> Outside Egypt:',
+                    plan3_title: "3 Months Plan",
+                    plan3_sub: "Great start & smooth experience",
+                    plan3_eg: '300 <small>EGP</small>',
+                    plan3_intl: '15 <small>USD</small>',
+                    plan6_title: "6 Months Plan",
+                    plan6_sub: "Balanced duration & smart value",
+                    plan6_eg: '350 <small>EGP</small>',
+                    plan6_intl: '35 <small>USD</small>',
+                    popular_tag: "Special Offer - Most Popular 🔥",
+                    plan12_title: "1 Year Plan (12 Months)",
+                    plan12_sub: "Full year of non-stop entertainment",
+                    plan12_eg: '500 <small>EGP</small>',
+                    plan12_intl: '<del style="color: #888; font-size: 1rem; margin-inline-end: 6px;">60</del> 50 <small>USD</small>',
+                    feat_sports: "All Sports & Entertainment Channels",
+                    feat_vod: "Daily Updated Movies & Series Library",
+                    feat_res: "4K / FHD / HD / SD Streams",
+                    feat_devices: "Smart TVs, Mobile, TV Box & PC",
+                    feat_vip_sports: "Priority Stability During Major Matches",
+                    feat_all_pkgs: "All Sports & Family Packages",
+                    feat_huge_vod: "Massive High-Quality VOD Library",
+                    feat_vip_support: "VIP Support Throughout Subscription",
+                    feat_support_reg: "24/7 Technical Assistance",
+                    order_btn: '<i class="fab fa-whatsapp"></i> Subscribe to Plan',
+                    order_btn_year: '<i class="fab fa-whatsapp"></i> Grab the 1-Year Offer',
+                    media_title: 'Inside <span class="logo-red">BODANOVA Server</span>',
+                    media_sub: "Check stream clarity, live sports quality, and our entertainment library",
+                 reviews_title: 'Client <span class="logo-red">Reviews</span>',
+                    reviews_sub: "Trusted by subscribers across Egypt and abroad",
+                    rev1_text: '"Super reliable server. Been using it for 6 months with zero lag even during major tournaments."',
+                    rev1_author: "- Ahmed Mahmoud (Egypt)",
+                    rev2_text: '"Fast support, activated in minutes, and the series library always has new releases."',
+                    rev2_author: "- Karim El-Sayed (Saudi Arabia)",
+                    rev3_text: '"Best quality-to-price ratio I have tried. Renewed for a full year and highly recommend it."',
+                    rev3_author: "- Mohamed Tarek (UAE)",
+                    add_rev_title: "Leave Your Review",
+                    name_ph: "Your Name (e.g., Youssef - Alexandria)",
+                    text_ph: "Share your experience with BODANOVA IPTV...",
+                    star5: "★★★★★ (Excellent 5/5)",
+                    star4: "★★★★☆ (Very Good 4/5)",
+                    submit_rev: "Post Review",
+                    rev_alert: "Thank you! Your review has been added.",
+                    footer_desc: "Your top destination for live television and home entertainment with high stability and fair pricing.",
+                    fb_btn: "Follow Us on Facebook",
+                    contact_title: "Contact for Subscription & Support",
+                    contact_desc: "Our team is ready to assist and activate your subscription on WhatsApp:",
+                    wa1: "WhatsApp 1: 01102008626",
+                    wa2: "WhatsApp 2: 01033674399",
+                    copyright: 'All Rights Reserved © 2026 <span class="logo-red">BODANOVA IPTV</span>',
+                    modal_title: "Complete Subscription",
+                    modal_desc: "Choose a WhatsApp number to contact us and activate instantly:",
+                    modal_wa1: "Chat on 01102008626",
+                    modal_wa2: "Chat on 01033674399",
+                    plan_prefix: "Selected Plan: ",
+                    plans: {
+                        plan3: "3 Months Plan (300 EGP inside Egypt / 15 USD outside Egypt)",
+                        plan6: "6 Months Plan (350 EGP inside Egypt / 35 USD outside Egypt)",
+                        plan12: "1 Year Special Offer - 12 Months (500 EGP inside Egypt / $50 instead of $60 outside Egypt)"
+                    },
+                    wa_msg: (plan) => `Hello BODANOVA IPTV, I would like to subscribe to: ${plan}`
+                }
+            };
+
+            let currentLang = 'ar';
+            let activePlanKey = null;
+
+            const langToggle = document.getElementById('langToggle');
+            const langLabel = document.getElementById('langLabel');
+            const reviewerNameInput = document.getElementById('reviewerName');
+            const reviewTextInput = document.getElementById('reviewText');
+            const selectedPlanText = document.getElementById('selectedPlanText');
+            const waLink1 = document.getElementById('waLink1');
+            const waLink2 = document.getElementById('waLink2');
+
+            function updateWhatsappLinks(planKey) {
+                const t = translations[currentLang];
+                const planLabel = t.plans[planKey] || "";
+                selectedPlanText.textContent = `${t.plan_prefix}${planLabel}`;
+                const encoded = encodeURIComponent(t.wa_msg(planLabel));
+                waLink1.href = `https://wa.me/201102008626?text=${encoded}`;
+                waLink2.href = `https://wa.me/201033674399?text=${encoded}`;
+            }
+
+            function applyLanguage(lang) {
+                currentLang = lang;
+                const t = translations[lang];
+                document.documentElement.lang = lang;
+                document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                document.title = t.page_title;
+                langLabel.textContent = t.lang_switch;
+
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (t[key] !== undefined) {
+                        el.innerHTML = t[key];
+                    }
+                });
+
+                reviewerNameInput.placeholder = t.name_ph;
+                reviewTextInput.placeholder = t.text_ph;
+
+                if (activePlanKey) {
+                    updateWhatsappLinks(activePlanKey);
+                }
+            }
+
+            langToggle.addEventListener('click', () => {
+                applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
+            });
+
+            // إضاءة الماوس
+            const cursorGlow = document.getElementById('cursorGlow');
+            document.addEventListener('mousemove', (e) => {
+                cursorGlow.style.left = `${e.clientX}px`;
+                cursorGlow.style.top = `${e.clientY}px`;
+            });
+
+            // حركة 3D لكروت الباقات
+            const tiltCards = document.querySelectorAll('.tilt-card');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -6;
+                    const rotateY = ((x - centerX) / centerX) * 6;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    if (card.classList.contains('popular') && window.innerWidth > 768) {
+                        card.style.transform = 'scale(1.03)';
+                    } else {
+                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                    }
+                });
+            });
+
+            // قائمة الموبايل
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // ظهور العناصر عند التمرير
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                revealElements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 80) {
+                        el.classList.add('visible');
+                    }
+                });
+            };
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+
+            // نافذة طلب الاشتراك
+            const orderButtons = document.querySelectorAll('.order-btn');
+            const orderModal = document.getElementById('orderModal');
+            const closeModal = document.getElementById('closeModal');
+
+            orderButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activePlanKey = btn.getAttribute('data-plan-key');
+                    updateWhatsappLinks(activePlanKey);
+                    orderModal.classList.add('active');
+                });
+            });
+
+            closeModal.addEventListener('click', () => {
+                orderModal.classList.remove('active');
+            });
+
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) {
+                    orderModal.classList.remove('active');
+                }
+            });
+
+            // إضافة تقييم جديد
+            const reviewForm = document.getElementById('reviewForm');
+            const reviewsGrid = document.getElementById('reviewsGrid');
+
+            reviewForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = reviewerNameInput.value.trim();
+                const stars = document.getElementById('reviewStars').value;
+                const text = reviewTextInput.value.trim();
+
+                if (name && text) {
+                    const newCard = document.createElement('div');
+                    newCard.className = 'review-card';
+                    newCard.innerHTML = `
+                        <div class="stars">${stars}</div>
+                        <p>"${text}"</p>
+                        <div class="reviewer">- ${name}</div>
+                    `;
+                    reviewsGrid.prepend(newCard);
+                    reviewForm.reset();
+                    alert(translations[currentLang].rev_alert);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
